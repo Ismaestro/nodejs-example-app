@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Narco",
+    "power": "Weather Changer",
+    "alterEgo": "pe"
+  },
+  {
+    "id": "2",
+    "name": "Bombasto",
+    "power": "Weather Changer",
+    "alterEgo": "bombi"
+  },
+  {
+    "id": "3",
+    "name": "Magneta",
+    "power": "Really Smart",
+    "alterEgo": "magne"
+  },
+  {
+    "id": "4",
+    "name": "Dynama",
+    "power": "Super Flexible",
+    "alterEgo": "dy"
+  },
+  {
+    "id": "5",
+    "name": "Dr IQ",
+    "power": "Really Smart",
+    "alterEgo": "iq"
+  },
+  {
+    "id": "6",
+    "name": "Magma",
+    "power": "Super Flexible",
+    "alterEgo": "cold"
+  }
+]
