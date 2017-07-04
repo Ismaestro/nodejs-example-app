@@ -53,15 +53,25 @@ app.put('/heroes/:id', jsonParser, function (req, res) {
 });
 
 app.delete('/heroes/:id', jsonParser, function (req, res) {
+  const idToRemove = req.params.id;
+  if (isDefaultHero(idToRemove)) {
+    res.status(501).send('Default hero');
+    return;
+  }
+
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   for(var i = heroes.length - 1; i >= 0; i--) {
-    if(heroes[i].id === req.params.id) {
+    if(heroes[i].id === idToRemove) {
       heroes.splice(i, 1);
     }
   }
   fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
   res.send(heroes);
 });
+
+function isDefaultHero(id) {
+  return id === '1' || id === '2' || id === '3' || id === '4' || id === '5' || id === '6'
+}
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
