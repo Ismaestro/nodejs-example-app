@@ -55,7 +55,7 @@ app.put('/heroes/:id', jsonParser, function (req, res) {
 app.delete('/heroes/:id', jsonParser, function (req, res) {
   const idToRemove = req.params.id;
   if (isDefaultHero(idToRemove)) {
-    res.status(501).send('Default hero');
+    res.status(500).send('Default hero');
     return;
   }
 
