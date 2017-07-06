@@ -16,7 +16,7 @@ app.get('/heroes', function(req, res) {
 app.get('/heroes/:id', function(req, res) {
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   for(var i = heroes.length - 1; i >= 0; i--) {
-    if(heroes[i].id === req.params.id) {
+    if(heroes[i].id === Number(req.params.id)) {
       res.send(JSON.stringify(heroes[i]));
       return;
     }
@@ -41,7 +41,7 @@ app.post('/heroes', jsonParser, function (req, res) {
 app.post('/heroes/:id/like', jsonParser, function (req, res) {
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   for(var i = heroes.length - 1; i >= 0; i--) {
-    if(heroes[i].id === req.body.id) {
+    if(heroes[i].id === Number(req.params.id)) {
       heroes[i].likes += 1;
     }
   }
@@ -57,7 +57,7 @@ app.put('/heroes/:id', jsonParser, function (req, res) {
     if(heroes[i].default) {
       res.status(500).send('Default hero');
       return;
-    } else if(heroes[i].id === req.params.id) {
+    } else if(heroes[i].id === Number(req.params.id)) {
       heroes[i] = req.body;
     }
   }
@@ -66,7 +66,7 @@ app.put('/heroes/:id', jsonParser, function (req, res) {
 });
 
 app.delete('/heroes/:id', jsonParser, function (req, res) {
-  const idToRemove = req.params.id;
+  const idToRemove = Number(req.params.id);
 
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   for(var i = heroes.length - 1; i >= 0; i--) {
