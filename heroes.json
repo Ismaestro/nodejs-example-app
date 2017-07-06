@@ -1,38 +1,30 @@
 [
   {
-    "id": "2",
-    "name": "Narco",
-    "power": "Weather Changer",
-    "alterEgo": "pe"
+    "id": 1,
+    "name": "Spiderman",
+    "alterEgo": "Peter Parker",
+    "power": 100,
+    "default": true
   },
   {
-    "id": "2",
-    "name": "Bombasto",
-    "power": "Weather Changer",
-    "alterEgo": "bombi"
+    "id": 2,
+    "name": "Superman",
+    "alterEgo": "Clark Kent",
+    "power": 85,
+    "default": true
   },
   {
-    "id": "3",
-    "name": "Magneta",
-    "power": "Really Smart",
-    "alterEgo": "magne"
+    "id": 3,
+    "name": "Batman",
+    "alterEgo": "Bruce Wayne",
+    "power": 70,
+    "default": true
   },
   {
-    "id": "4",
-    "name": "Dynama",
-    "power": "Super Flexible",
-    "alterEgo": "dy"
-  },
-  {
-    "id": "5",
-    "name": "Dr IQ",
-    "power": "Really Smart",
-    "alterEgo": "iq"
-  },
-  {
-    "id": "6",
-    "name": "Magma",
-    "power": "Super Flexible",
-    "alterEgo": "cold"
+    "id": 4,
+    "name": "Wonder woman",
+    "alterEgo": "Diana Prince",
+    "power": 75,
+    "default": true
   }
 ]
