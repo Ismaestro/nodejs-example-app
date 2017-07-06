@@ -38,6 +38,17 @@ app.post('/heroes', jsonParser, function (req, res) {
   res.send(heroes);
 });
 
+app.post('/heroes/:id/like', jsonParser, function (req, res) {
+  var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
+  for(var i = heroes.length - 1; i >= 0; i--) {
+    if(heroes[i].id === req.body.id) {
+      heroes[i].likes = heroes[i].likes++;
+    }
+  }
+  fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
+  res.send(true);
+});
+
 app.put('/heroes/:id', jsonParser, function (req, res) {
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   for(var i = heroes.length - 1; i >= 0; i--) {
