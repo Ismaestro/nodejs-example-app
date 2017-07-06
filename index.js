@@ -15,7 +15,7 @@ app.get('/heroes', function(req, res) {
 
 app.get('/heroes/:id', function(req, res) {
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for(var i = heroes.length - 1; i >= 0; i--) {
+  for(var i = 0; i < heroes.length; i++) {
     if(heroes[i].id === Number(req.params.id)) {
       res.send(JSON.stringify(heroes[i]));
       return;
@@ -27,7 +27,7 @@ app.get('/heroes/:id', function(req, res) {
 app.post('/heroes', jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for(var i = heroes.length - 1; i >= 0; i--) {
+  for(var i = 0; i < heroes.length; i++) {
     if(heroes[i].id === req.body.id) {
       res.status(500).send('Duplicated id');
       return;
@@ -40,36 +40,20 @@ app.post('/heroes', jsonParser, function (req, res) {
 
 app.post('/heroes/:id/like', jsonParser, function (req, res) {
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for(var i = heroes.length - 1; i >= 0; i--) {
+  for(var i = 0; i < heroes.length; i++) {
     if(heroes[i].id === Number(req.params.id)) {
       heroes[i].likes += 1;
     }
   }
-
-  console.log(JSON.stringify(heroes));
   fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
   res.send();
-});
-
-app.put('/heroes/:id', jsonParser, function (req, res) {
-  var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for(var i = heroes.length - 1; i >= 0; i--) {
-    if(heroes[i].default) {
-      res.status(500).send('Default hero');
-      return;
-    } else if(heroes[i].id === Number(req.params.id)) {
-      heroes[i] = req.body;
-    }
-  }
-  fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
-  res.send(heroes);
 });
 
 app.delete('/heroes/:id', jsonParser, function (req, res) {
   const idToRemove = Number(req.params.id);
 
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for(var i = heroes.length - 1; i >= 0; i--) {
+  for(var i = 0; i < heroes.length; i++) {
     if(heroes[i].id === idToRemove && heroes[i].default) {
       res.status(500).send('Default hero');
       return;
