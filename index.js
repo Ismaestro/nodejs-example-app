@@ -45,6 +45,8 @@ app.post('/heroes/:id/like', jsonParser, function (req, res) {
       heroes[i].likes += 1;
     }
   }
+
+  console.log(JSON.stringify(heroes));
   fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
   res.send();
 });
