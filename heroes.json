@@ -3,28 +3,28 @@
     "id": 1,
     "name": "Spiderman",
     "alterEgo": "Peter Parker",
-    "power": 100,
+    "likes": 100,
     "default": true
   },
   {
     "id": 2,
     "name": "Superman",
     "alterEgo": "Clark Kent",
-    "power": 85,
+    "likes": 50,
     "default": true
   },
   {
     "id": 3,
     "name": "Batman",
     "alterEgo": "Bruce Wayne",
-    "power": 70,
+    "likes": 70,
     "default": true
   },
   {
     "id": 4,
     "name": "Wonder woman",
     "alterEgo": "Diana Prince",
-    "power": 75,
+    "likes": 30,
     "default": true
   }
 ]
