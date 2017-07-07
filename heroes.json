@@ -26,5 +26,12 @@
     "alterEgo": "Diana Prince",
     "likes": 265,
     "default": true
+  },
+  {
+    "id": 5,
+    "name": "Unknown",
+    "alterEgo": "Something",
+    "likes": 0,
+    "default": false
   }
 ]
