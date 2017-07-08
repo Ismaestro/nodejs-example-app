@@ -27,12 +27,8 @@ app.get('/heroes/:id', function(req, res) {
 app.post('/heroes', jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for(var i = 0; i < heroes.length; i++) {
-    if(heroes[i].id === req.body.id) {
-      res.status(500).send('Duplicated id');
-      return;
-    }
-  }
+  var newHero = req.body;
+  newHero.id = heroes[heroes.length-1].id + 1;
   heroes.push(req.body);
   fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
   res.send(heroes);
