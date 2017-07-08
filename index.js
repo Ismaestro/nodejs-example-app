@@ -29,6 +29,8 @@ app.post('/heroes', jsonParser, function (req, res) {
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   var newHero = req.body;
   newHero.id = heroes[heroes.length-1].id + 1;
+  newHero.likes = 0;
+  newHero.default = false;
   heroes.push(req.body);
   fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
   res.send(heroes);
