@@ -42,7 +42,6 @@ app.get('/heroes/:id', function (req, res) {
         }
       });
   });
-  res.status(404).send('Not found');
 });
 
 app.post('/heroes', jsonParser, function (req, res) {
