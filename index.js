@@ -13,17 +13,17 @@ app.use(cors());
 
 app.get('/heroes', function (req, res) {
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-    client.query('SELECT id, name, alter_ego as alterEgo, likes, default_hero as defaultHero FROM heroes',
+    client.query('SELECT id, name, alter_ego as "alterEgo", likes, default_hero as "defaultHero" FROM heroes',
       function (err, result) {
-      done();
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error');
-      }
-      else {
-        res.send(result.rows);
-      }
-    });
+        done();
+        if (err) {
+          console.error(err);
+          res.status(500).send({});
+        }
+        else {
+          res.send(result.rows);
+        }
+      });
   });
 });
 
@@ -45,19 +45,17 @@ app.post('/heroes', jsonParser, function (req, res) {
 
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
-      'INSERT into post1 (name, alter_ego, likes, default_hero) VALUES($1, $2, $3, $4) RETURNING id',
-      [newHero.name, newHero.alterEgo, 0, true], function (err, result) {
-      done();
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error');
-      }
-      else {
-        res.send(result);
-      }
-    }
-    )
-    ;
+      'INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ($1, $2, $3, $4) RETURNING id',
+      [newHero.name, newHero.alterEgo, 0, false], function (err, result) {
+        done();
+        if (err) {
+          console.error(err);
+          res.status(500).send({});
+        }
+        else {
+          res.send(result);
+        }
+      });
   });
 });
 
