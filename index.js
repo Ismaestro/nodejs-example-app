@@ -50,7 +50,7 @@ app.post('/heroes', jsonParser, function (req, res) {
 
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
-      'INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ($1, $2, $3, $4) RETURNING id',
+      'INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ($1, $2, $3, $4) RETURNING hero_id',
       [newHero.name, newHero.alterEgo, 0, false], function (err, result) {
         done();
         if (err) {
