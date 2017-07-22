@@ -40,7 +40,6 @@ app.get('/heroes/:id', function (req, res) {
 
 app.post('/heroes', jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
-  var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   var newHero = req.body;
 
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
@@ -74,17 +73,20 @@ app.post('/heroes/:id/like', jsonParser, function (req, res) {
 app.delete('/heroes/:id', jsonParser, function (req, res) {
   const idToRemove = Number(req.params.id);
 
-  var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for (var i = 0; i < heroes.length; i++) {
-    if (heroes[i].id === idToRemove && heroes[i].default) {
-      res.status(500).send('Default hero');
-      return;
-    } else if (heroes[i].id === idToRemove) {
-      heroes.splice(i, 1);
-    }
-  }
-  fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
-  res.send(heroes);
+  pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+    client.query(
+      'DELETE FROM heroes WHERE id = $1',
+      [idToRemove], function (err, result) {
+        done();
+        if (err) {
+          console.error(err);
+          res.status(500).send({});
+        }
+        else {
+          res.send({});
+        }
+      });
+  });
 });
 
 app.listen(app.get('port'), function () {
