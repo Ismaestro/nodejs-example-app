@@ -29,8 +29,8 @@ app.get('/heroes', function (req, res) {
 
 app.get('/heroes/:id', function (req, res) {
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-    client.query('SELECT id, name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes' +
-      'WHERE id = $1',
+    client.query(
+      'SELECT id, name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes WHERE id = $1',
       [Number(req.params.id)], function (err, result) {
         done();
         if (err) {
@@ -38,6 +38,7 @@ app.get('/heroes/:id', function (req, res) {
           res.status(500).send({});
         }
         else {
+          console.error(result);
           res.send(result.rows);
         }
       });
