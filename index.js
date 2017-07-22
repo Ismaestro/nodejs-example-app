@@ -13,7 +13,7 @@ app.use(cors());
 
 app.get('/heroes', function (req, res) {
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-    client.query('SELECT id, name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes',
+    client.query('SELECT hero_id as "id", name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes',
       function (err, result) {
         done();
         if (err) {
@@ -30,7 +30,7 @@ app.get('/heroes', function (req, res) {
 app.get('/heroes/:id', function (req, res) {
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
-      'SELECT id, name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes WHERE id = $1',
+      'SELECT hero_id as "id", name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes WHERE hero_id = $1',
       [Number(req.params.id)], function (err, result) {
         done();
         if (err) {
@@ -68,7 +68,7 @@ app.post('/heroes', jsonParser, function (req, res) {
 app.post('/heroes/:id/like', jsonParser, function (req, res) {
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
-      'UPDATE heroes SET likes = likes + 1 WHERE id = $1;',
+      'UPDATE heroes SET likes = likes + 1 WHERE hero_id = $1;',
       [Number(req.params.id)], function (err, result) {
         done();
         if (err) {
@@ -88,7 +88,7 @@ app.delete('/heroes/:id', jsonParser, function (req, res) {
 
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
-      'DELETE FROM heroes WHERE id = $1',
+      'DELETE FROM heroes WHERE hero_id = $1',
       [idToRemove], function (err, result) {
         done();
         if (err) {
