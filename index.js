@@ -55,7 +55,7 @@ app.post('/heroes', jsonParser, function (req, res) {
         done();
         if (err) {
           console.error(err);
-          res.status(500).send({});
+          res.status(500).send(err);
         }
         else {
           newHero.id = result.rows[0].id;
