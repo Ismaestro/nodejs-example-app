@@ -28,13 +28,20 @@ app.get('/heroes', function (req, res) {
 });
 
 app.get('/heroes/:id', function (req, res) {
-  var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for (var i = 0; i < heroes.length; i++) {
-    if (heroes[i].id === Number(req.params.id)) {
-      res.send(JSON.stringify(heroes[i]));
-      return;
-    }
-  }
+  pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+    client.query('SELECT id, name, alter_ego as "alterEgo", likes, default_hero as "default" FROM heroes' +
+      'WHERE id = $1',
+      [Number(req.params.id)], function (err, result) {
+        done();
+        if (err) {
+          console.error(err);
+          res.status(500).send({});
+        }
+        else {
+          res.send(result.rows);
+        }
+      });
+  });
   res.status(404).send('Not found');
 });
 
