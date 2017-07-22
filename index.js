@@ -60,14 +60,21 @@ app.post('/heroes', jsonParser, function (req, res) {
 });
 
 app.post('/heroes/:id/like', jsonParser, function (req, res) {
-  var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
-  for (var i = 0; i < heroes.length; i++) {
-    if (heroes[i].id === Number(req.params.id)) {
-      heroes[i].likes += 1;
-    }
-  }
-  fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
-  res.send();
+  pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+    client.query(
+      'UPDATE heroes SET likes = likes + 1 WHERE id = $1;',
+      [Number(req.params.id)], function (err, result) {
+        done();
+        if (err) {
+          console.error(err);
+          res.status(500).send({});
+        }
+        else {
+          res.send({});
+        }
+      });
+  });
+
 });
 
 app.delete('/heroes/:id', jsonParser, function (req, res) {
