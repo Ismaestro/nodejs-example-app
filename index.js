@@ -13,7 +13,8 @@ app.use(cors());
 
 app.get('/heroes', function (req, res) {
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-    client.query('SELECT * FROM heroes', function (err, result) {
+    client.query('SELECT id, name, alter_ego as alterEgo, likes, default_hero as defaultHero FROM heroes',
+      function (err, result) {
       done();
       if (err) {
         console.error(err);
@@ -41,12 +42,23 @@ app.post('/heroes', jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
   var heroes = JSON.parse(fs.readFileSync('./heroes.json', 'utf8'));
   var newHero = req.body;
-  newHero.id = heroes[heroes.length - 1].id + 1;
-  newHero.likes = 0;
-  newHero.default = false;
-  heroes.push(req.body);
-  fs.writeFileSync('./heroes.json', JSON.stringify(heroes));
-  res.send(heroes);
+
+  pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+    client.query(
+      'INSERT into post1 (name, alter_ego, likes, default_hero) VALUES($1, $2, $3, $4) RETURNING id',
+      [newHero.name, newHero.alterEgo, 0, true], function (err, result) {
+      done();
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error');
+      }
+      else {
+        res.send(result);
+      }
+    }
+    )
+    ;
+  });
 });
 
 app.post('/heroes/:id/like', jsonParser, function (req, res) {
