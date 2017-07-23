@@ -38,7 +38,7 @@ app.get('/heroes/:id', function (req, res) {
           res.status(500).send({});
         }
         else {
-          res.send(result.rows);
+          res.send(result.rows[0]);
         }
       });
   });
