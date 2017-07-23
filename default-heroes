@@ -8,5 +8,5 @@ INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Wonder woman'
 INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Iron man', 'Tony Stark', 65, true);
 INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Capitan America', 'Steven Grant Rogers', 45, true);
 INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Hulk', 'Bruce Banner', 12, true);
-INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Hulk', 'Deadpool', 102, true);
+INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Deadpool', 'Wade Winston Wilson', 102, true);
 INSERT into heroes (name, alter_ego, likes, default_hero) VALUES ('Wolverine', 'James Howlett', 87, true);
