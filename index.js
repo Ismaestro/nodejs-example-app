@@ -59,7 +59,7 @@ app.post('/heroes', jsonParser, function (req, res) {
         }
         else {
           res.send({
-            'id': result.rows[0].id,
+            'id': result.rows[0].hero_id,
             'name': newHero.name,
             'alterEgo': newHero.alterEgo,
             'likes': 0,
