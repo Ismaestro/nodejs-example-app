@@ -58,7 +58,13 @@ app.post('/heroes', jsonParser, function (req, res) {
           res.status(500).send(err);
         }
         else {
-          res.send(result.rows[0]);
+          res.send({
+            'id': result.rows[0],
+            'name': newHero.name,
+            'alterEgo': newHero.alterEgo,
+            'likes': 0,
+            'default': false
+          });
         }
       });
   });
