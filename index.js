@@ -58,8 +58,7 @@ app.post('/heroes', jsonParser, function (req, res) {
           res.status(500).send(err);
         }
         else {
-          newHero.id = result.rows[0].id;
-          res.send(newHero);
+          res.send(result.rows[0]);
         }
       });
   });
