@@ -45,8 +45,9 @@ app.get('/heroes/:id', function (req, res) {
 });
 
 app.post('/heroes', jsonParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400);
   var newHero = req.body;
+
+  if (!req.body || !newHero.name || !newHero.name) return res.sendStatus(400);
 
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
