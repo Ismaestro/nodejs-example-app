@@ -94,7 +94,7 @@ app.delete('/heroes/:id', jsonParser, function (req, res) {
 
   pg.connect(process.env.DATABASE_URL, function (err, client, done) {
     client.query(
-      'DELETE FROM heroes WHERE hero_id = $1',
+      'DELETE FROM heroes WHERE hero_id = $1 AND default_hero = false',
       [idToRemove], function (err, result) {
         done();
         if (err) {
